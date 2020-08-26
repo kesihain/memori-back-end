@@ -14,7 +14,7 @@ users_api_blueprint = Blueprint('users_api',
 def index():
     return "USERS API"
 
-@users_api_blueprint.route('/signup', methods=['POST'])
+@users_api_blueprint.route('/signup/', methods=['POST'])
 def create():
     username = request.json.get('username')
     email = request.json.get('email')
