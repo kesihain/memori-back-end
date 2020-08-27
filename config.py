@@ -7,6 +7,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get(
         'SECRET_KEY') or os.urandom(32)
+    JWT_ACCESS_TOKEN_EXPIRES=False
 
 
 class ProductionConfig(Config):

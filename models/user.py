@@ -18,13 +18,14 @@ class User(UserMixin,BaseModel):
         if existing_user_username and existing_user_username.id != self.id:
             self.errors.append(f"Username {self.username} already in use!")
         if self.password:
-            if len(self.password)<6:
-                self.errors.append(f"Password is less that 6 characters")
-            has_lower = re.search(r"[a-z]",self.password)
-            has_upper = re.search(r"[A-Z]",self.password)
-            has_special = re.search(r"[\[ \] \* \$ \% \^ \& \# \? ]", self.password)
-            if not (has_lower and has_upper and has_special):
-                self.errors.append(f"Password needs to have a combination of lowercase, uppercase and special characters")  
-            if len(self.errors)==0:
+            # if len(self.password)<6:
+            #     self.errors.append(f"Password is less that 6 characters")
+            # has_lower = re.search(r"[a-z]",self.password)
+            # has_upper = re.search(r"[A-Z]",self.password)
+            # has_special = re.search(r"[\[ \] \* \$ \% \^ \& \# \? ]", self.password)
+            # if not (has_lower and has_upper and has_special):
+            #     self.errors.append(f"Password needs to have a combination of lowercase, uppercase and special characters")  
+            # if len(self.errors)==0:
+            if len(self.password)>6:
                 self.password_hash=generate_password_hash(self.password)
 
