@@ -16,12 +16,18 @@ locations_api_blueprint = Blueprint('location_api',
 def create():
     name = request.json.get('name', None)
     full_address = request.json.get('address',None)
+    latitude = request.json.get('latitude',None)
+    longitude = request.json.get('longitude',None)
     username = get_jwt_identity()
-    user = User.select().where(User.username==username)
-    print(user[0])
-    location = Location(name=name,full_address=full_address, user=user[0].id)
+    user = User.get_or_none(User.username==username)
+    # print(user[0])
+    location = Location(name=name,full_address=full_address, user=user.id)
+    if (latitude!=None and longitude!=None):
+        location = Location(name=name,full_address=full_address, user=user.id, longitude=longitude,latitude=latitude)
     if location.save():
-        result = {'message':'Location created'}
+        result = {
+            'id':location.id,'name':name,'address':full_address,'longitude':longitude,'latitude':latitude
+        }
         return jsonify(result)
     else:
         result={'message':'Failed to create location'}
@@ -32,13 +38,9 @@ def create():
 def show():
     username = get_jwt_identity()
     user = User.get_or_none(User.username==username)
-    # locations=[(item) for item in user.locations]
-    # print(locations)
-    # [locations.append(item) for item in user.locations]
     result=[]
     for location in user.locations:
-        item = { 'id': 1, 'name': "Next Academy", 'latitude':3.1350424, 'longitude':101.6299529 }
+        item = { 'id': location.id, 'name':location.name, 'latitude':location.latitude, 'longitude':location.longitude }
         result.append(item)
-        print(result)
     return jsonify(result)
 
