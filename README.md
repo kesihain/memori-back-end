@@ -102,9 +102,7 @@ To access it on mobil you will need to
 1. run `flask run --host 0.0.0.0`
 2. Open command prompt run `ipconfig`
 3. Check the ipv4 url and use it as the origin for backend api endpoint call url path
-```
-flask run
-```
+Otherwise use `flask run`
 
 ## Starting Shell
 
