@@ -1,11 +1,20 @@
-# Flask Nextagram Template
-
-version 0.0.1 (alpha)
-
-## Development
-
-**Make a fork before cloning**
-
+# memori-back-end
+This is the back end server that serves the memori mobile app. 
+## Features
+- can make post request to create new user
+- can make post request to create new login session
+- can make post request to destroy existing loging session
+- can make post request to save multiple locations associated with user (jwt required)
+- can make post request to save multiple reminders associated with each location (jwt required)
+- can make get request to view locations data
+- can make get request to view reminders data
+## How to run locally?
+**Download Zip or clone repo**
+**Create Conda Environment**
+```
+conda create -n nextagram python=3.7
+conda activate nextagram
+```
 **Install dependencies**
 
 - Python 3.7.2 was tested
@@ -42,7 +51,7 @@ Minimum environment variables that needs to be set
 ```
 FLASK_APP='start' # based on the name of our entry point script
 FLASK_ENV='development' # use this in development, otherwise 'production' or 'test'
-DATABASE_URL="postgres://localhost:5432/nextagram_dev"
+DATABASE_URL="postgres://localhost:5432/memori"
 SECRET_KEY= #generate your own key
 ```
 
@@ -62,7 +71,7 @@ _(see `database.py`)_
 - this application is configured to use Postgresql
 
 ```
-createdb nextagram_dev
+createdb memori
 ```
 
 _\*if you name your database something else, tweak the settings in `.env`_
@@ -89,7 +98,10 @@ python migrate.py
 \*_this template is configured to use Peewee's PooledConnection, however, migrations using Peewee-DB-Evolve doesn't work well. A hack was used to not use PooledConnection when running migration. Pending investigation. There are no known side effects to run this template in production._
 
 ## Starting Server
-
+To access it on mobil you will need to 
+1. run `flask run --host 0.0.0.0`
+2. Open command prompt run `ipconfig`
+3. Check the ipv4 url and use it as the origin for backend api endpoint call url path
 ```
 flask run
 ```
@@ -111,8 +123,6 @@ flask shell
 ---
 
 ## Architecture
-
-This template separates out API and Web to separate packages. Both API and Web are configured to use Flask's Blueprints.
 
 All new models should go into it's own file/script within the models directory.
 
@@ -152,7 +162,3 @@ Werkzeug==0.14.1
 Remove `certifi==2018.11.29` if you're having trouble installing dependencies.
 
 ---
-
-This repository belongs to [NEXT Academy](https://www.nextacademy.com/?utm_source=github&utm_medium=student-challenge&utm_campaign=flask-nextagram) and is a part of NEXT Academy's coding bootcamps. You may find more information about our bootcamp at https://www.nextacademy.com
-
-If you are already a student, you may find the challenge description at https://code.nextacademy.com/lessons/day-1--starting-template/479
